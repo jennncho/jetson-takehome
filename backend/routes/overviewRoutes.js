@@ -9,7 +9,7 @@ router.get("/overview", async (req, res) => {
         const { department, date } = req.query;
 
         const departmentFilter =
-            department && department !== "all"
+            department && department !== "All"
                 ? { department: department.split(",") }
                 : null;
 
@@ -21,7 +21,7 @@ router.get("/overview", async (req, res) => {
                 getEmployeeCount(departmentFilter),
                 getHoursMetrics(departmentFilter, dateFilter),
                 getPTOMetrics(departmentFilter, date),
-                getTopEmployees(departmentFilter, dateFilter),
+                // getTopEmployees(departmentFilter, dateFilter),
             ]);
 
         res.json({
@@ -33,10 +33,10 @@ router.get("/overview", async (req, res) => {
                 pto_hours_taken: ptoMetrics.hoursTotal,
                 overtime_hours: hoursMetrics.overtimeHours,
                 paid_duration_hours: hoursMetrics.paidDurationHours,
-                top_employees: topEmployees,
+                // top_employees: topEmployees,
             },
             filters: {
-                department: department || "all",
+                department: department || "All",
                 date: date || null,
             },
             meta: {
@@ -46,6 +46,30 @@ router.get("/overview", async (req, res) => {
         });
     } catch (error) {
         console.error("Dashboard overview error:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.get("/overview/top-employees", async (req, res) => {
+    try {
+        const { department, date } = req.query;
+
+        const departmentFilter =
+            department && department !== "All"
+                ? { department: department.split(",") }
+                : null;
+        const dateFilter = date ? { work_date: date } : {};
+
+        const topEmployees = await getTopEmployees(
+            departmentFilter,
+            dateFilter
+        );
+
+        res.json({
+            data: { top_employees: topEmployees },
+            filters: { department: department || "All", date: date || null },
+        });
+    } catch (error) {
         res.status(500).json({ error: "Internal server error" });
     }
 });
@@ -192,6 +216,7 @@ async function getTopEmployees(departmentFilter, dateFilter, limit = 10) {
 }
 
 module.exports = router;
+
 // Remove the complex date parsing function since we only need simple date filtering
 // Helper function for date filtering is no longer needed
 
@@ -248,29 +273,6 @@ module.exports = router;
 //         res.json({
 //             data: ptoMetrics,
 //             filters: { department: department || "all", date },
-//         });
-//     } catch (error) {
-//         res.status(500).json({ error: "Internal server error" });
-//     }
-// });
-
-// router.get("/employees/top-performers", async (req, res) => {
-//     try {
-//         const { department, limit = 10 } = req.query;
-//         const departmentFilter =
-//             department && department !== "all"
-//                 ? { department: department.split(",") }
-//                 : {};
-
-//         const topEmployees = await getTopEmployees(
-//             departmentFilter,
-//             {},
-//             parseInt(limit)
-//         );
-
-//         res.json({
-//             data: { top_employees: topEmployees },
-//             filters: { department: department || "all", limit },
 //         });
 //     } catch (error) {
 //         res.status(500).json({ error: "Internal server error" });

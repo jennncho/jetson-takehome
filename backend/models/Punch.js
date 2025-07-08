@@ -82,35 +82,3 @@ module.exports = (sequelize, DataTypes) => {
 
     return Punch;
 };
-// "use strict";
-// const { Model } = require("sequelize");
-// module.exports = (sequelize, DataTypes) => {
-//     class Punch extends Model {
-//         /**
-//          * Helper method for defining associations.
-//          * This method is not a part of Sequelize lifecycle.
-//          * The `models/index` file will call this method automatically.
-//          */
-//         static associate(models) {
-//             // define association here
-//         }
-//     }
-//     Punch.init(
-//         {
-//             employee_id: DataTypes.STRING,
-//             work_date: DataTypes.DATEONLY,
-//             punch_in_time: DataTypes.TIME,
-//             punch_out_time: DataTypes.TIME,
-//             punch_in_type: DataTypes.STRING,
-//             punch_out_type: DataTypes.STRING,
-//             regular_duration: DataTypes.DECIMAL,
-//             ot_duration: DataTypes.DECIMAL,
-//             paid_duration: DataTypes.DECIMAL,
-//         },
-//         {
-//             sequelize,
-//             modelName: "Punch",
-//         }
-//     );
-//     return Punch;
-// };

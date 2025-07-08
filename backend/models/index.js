@@ -22,20 +22,6 @@ if (config.use_env_variable) {
     );
 }
 
-// // Import models
-// const Employee = require("./Employee")(sequelize, Sequelize.DataTypes);
-// const Punch = require("./Punch")(sequelize, Sequelize.DataTypes);
-
-// // Define associations
-// Employee.hasMany(Punch, { foreignKey: "employee_id", as: "punches" });
-// Punch.belongsTo(Employee, { foreignKey: "employee_id", as: "employee" });
-
-// const db = {
-//     sequelize,
-//     Sequelize,
-//     Employee,
-//     Punch,
-// };
 fs.readdirSync(__dirname)
     .filter((file) => {
         return (

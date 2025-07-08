@@ -6,6 +6,8 @@ const csv = require("fast-csv");
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
+        // Clear existing data in the Punches table
+        await queryInterface.bulkDelete("Punches", null, {});
         return new Promise((resolve, reject) => {
             const punches = [];
 
@@ -37,7 +39,8 @@ module.exports = {
                         )
                             return 0;
                         const parsed = parseFloat(value);
-                        return isNaN(parsed) ? 0 : parsed;
+                        if (isNaN(parsed)) return 0;
+                        return Math.round(parsed * 100) / 100;
                     };
 
                     const safeParseDate = (value) => {
@@ -48,8 +51,14 @@ module.exports = {
                             value === "undefined"
                         )
                             return null;
+
+                        // Try parsing with moment.js or date-fns for consistency
+                        // Or use a specific format if you know your CSV format
                         const parsed = new Date(value);
-                        return isNaN(parsed.getTime()) ? null : parsed;
+                        if (isNaN(parsed.getTime())) return null;
+
+                        // Ensure consistent timezone handling
+                        return new Date(parsed.toISOString());
                     };
 
                     const safeString = (value) => {

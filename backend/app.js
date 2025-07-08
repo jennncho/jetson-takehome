@@ -3,6 +3,7 @@ const cors = require("cors");
 const { sequelize } = require("./models");
 require("dotenv").config();
 const overviewRoutes = require("./routes/overviewRoutes");
+const departmentRoutes = require("./routes/departmentRoutes");
 
 const app = express();
 
@@ -10,14 +11,15 @@ const app = express();
 app.use(
     cors({
         origin: process.env.FRONTEND_URL || "http://localhost:3000",
+        credentials: true,
     })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-
 app.use("/api", overviewRoutes);
+app.use("/api/departments", departmentRoutes);
 // Health check endpoint
 app.get("/api/health", (req, res) => {
     res.json({ status: "OK", message: "Server is running" });
