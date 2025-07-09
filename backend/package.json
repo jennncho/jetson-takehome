@@ -3,11 +3,13 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js",
         "dev": "nodemon server.js",
         "migrate": "npx sequelize-cli db:migrate",
-        "seed": "npx sequelize-cli db:seed:all"
+        "seed": "node scripts/seed.js",
+        "seed:dev": "NODE_ENV=development node scripts/seed.js",
+        "seed:prod": "NODE_ENV=production node scripts/seed.js",
+        "db:setup": "npm run db:migrate && npm run db:seed"
     },
     "keywords": [],
     "author": "",

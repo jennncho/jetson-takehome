@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3001/api";
+// Use environment variable for Docker compatibility
+const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
 
 // Create axios instance with default config
 const api = axios.create({
@@ -14,7 +16,6 @@ const api = axios.create({
 export const getEmployees = async (params) => {
     try {
         const response = await api.get("/overview/employees", { params });
-        console.log("Employees response HITTING:", response.data);
         return response.data;
     } catch (error) {
         console.error("Error fetching top ten employees:", error);

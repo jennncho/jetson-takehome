@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
             employee_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                references: {
-                    model: "employees",
-                    key: "id",
-                },
             },
             work_date: {
                 type: DataTypes.DATEONLY,
