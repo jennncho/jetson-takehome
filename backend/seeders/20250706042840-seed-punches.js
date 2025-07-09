@@ -17,7 +17,8 @@ module.exports = {
                 trim: true,
             })
                 .on("data", (data) => {
-                    // Helper functions to safely parse values
+                    // Helper functions to safely parse different data types
+                    // Function to safely parse integers
                     const safeParseInt = (value) => {
                         if (
                             !value ||
@@ -29,7 +30,7 @@ module.exports = {
                         const parsed = parseInt(value);
                         return isNaN(parsed) ? null : parsed;
                     };
-
+                    // Function to safely parse floats
                     const safeParseFloat = (value) => {
                         if (
                             !value ||
@@ -43,6 +44,7 @@ module.exports = {
                         return Math.round(parsed * 100) / 100;
                     };
 
+                    // Function to safely parse dates
                     const safeParseDate = (value) => {
                         if (
                             !value ||
@@ -52,15 +54,14 @@ module.exports = {
                         )
                             return null;
 
-                        // Try parsing with moment.js or date-fns for consistency
-                        // Or use a specific format if you know your CSV format
+                        // Handle different date formats
                         const parsed = new Date(value);
                         if (isNaN(parsed.getTime())) return null;
 
                         // Ensure consistent timezone handling
                         return new Date(parsed.toISOString());
                     };
-
+                    // Function to safely convert strings
                     const safeString = (value) => {
                         if (!value || value === "NaN" || value === "undefined")
                             return null;
@@ -109,28 +110,3 @@ module.exports = {
         await queryInterface.bulkDelete("Punches", null, {});
     },
 };
-// 'use strict';
-
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     /**
-//      * Add seed commands here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkInsert('People', [{
-//      *   name: 'John Doe',
-//      *   isBetaMember: false
-//      * }], {});
-//     */
-//   },
-
-//   async down (queryInterface, Sequelize) {
-//     /**
-//      * Add commands to revert seed here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkDelete('People', null, {});
-//      */
-//   }
-// };

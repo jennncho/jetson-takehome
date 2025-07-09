@@ -8,7 +8,7 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.bulkDelete("Departments", null, {}); // This line clears the table first
         return new Promise((resolve, reject) => {
-            const departments = new Map(); // Use Map to avoid duplicates
+            const departments = new Map();
 
             csv.parseFile(path.join(__dirname, "../data/punch-report.csv"), {
                 headers: true,

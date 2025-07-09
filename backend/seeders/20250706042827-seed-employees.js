@@ -8,7 +8,7 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.bulkDelete("Employees", null, {}); // This line clears the table first
         return new Promise((resolve, reject) => {
-            const employees = new Map(); // Use Map to avoid duplicates
+            const employees = new Map();
 
             csv.parseFile(path.join(__dirname, "../data/punch-report.csv"), {
                 headers: true,
@@ -50,29 +50,3 @@ module.exports = {
         await queryInterface.bulkDelete("Employees", null, {});
     },
 };
-
-// 'use strict';
-
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     /**
-//      * Add seed commands here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkInsert('People', [{
-//      *   name: 'John Doe',
-//      *   isBetaMember: false
-//      * }], {});
-//     */
-//   },
-
-//   async down (queryInterface, Sequelize) {
-//     /**
-//      * Add commands to revert seed here.
-//      *
-//      * Example:
-//      * await queryInterface.bulkDelete('People', null, {});
-//      */
-//   }
-// };

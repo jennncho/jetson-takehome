@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const { sequelize } = require("./models");
 require("dotenv").config();
 const overviewRoutes = require("./routes/overviewRoutes");
 const departmentRoutes = require("./routes/departmentRoutes");
@@ -18,8 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/api", overviewRoutes);
+app.use("/api/overview", overviewRoutes);
 app.use("/api/departments", departmentRoutes);
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
     res.json({ status: "OK", message: "Server is running" });

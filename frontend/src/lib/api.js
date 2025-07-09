@@ -10,24 +10,37 @@ const api = axios.create({
         "Content-Type": "application/json",
     },
 });
-// Function to get overview data
-export const getOverview = async (params) => {
+
+export const getEmployees = async (params) => {
     try {
-        const response = await api.get("/overview", { params });
+        const response = await api.get("/overview/employees", { params });
+        console.log("Employees response HITTING:", response.data);
         return response.data;
     } catch (error) {
-        console.error("Error fetching overview data:", error);
+        console.error("Error fetching top ten employees:", error);
         throw error;
     }
 };
 
-export const getTopTenEmployees = async (params) => {
+export const getHoursMetrics = async (params) => {
     try {
-        const response = await api.get("/overview/top-employees", { params });
-        console.log("Top ten employees response HITTING:", response.data);
+        console.log("Params being sent:", params); // Add this line
+        const response = await api.get("/overview/hours-metrics", { params });
         return response.data;
     } catch (error) {
-        console.error("Error fetching top ten employees:", error);
+        console.error("Error fetching overview data:", error);
+        console.error("Error details:", error.response?.data); // Add this line
+        throw error;
+    }
+};
+
+export const getPTOMetrics = async (params) => {
+    try {
+        const response = await api.get("/overview/pto-metrics", { params });
+        console.log("PTO metrics HITTING:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching PTO metrics:", error);
         throw error;
     }
 };
