@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             tableName: "Employees",
-            timestamps: false,
+            timestamps: true,
             indexes: [
                 {
                     fields: ["department"],

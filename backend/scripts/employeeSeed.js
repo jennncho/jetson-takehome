@@ -33,21 +33,7 @@ async function seedEmployees() {
                     // Clear existing employees
                     await Employee.destroy({ where: {} });
 
-                    // Get all departments to map names to IDs
-                    const departments = await Department.findAll();
-                    const departmentMap = new Map();
-                    departments.forEach((dept) => {
-                        departmentMap.set(dept.name, dept.id);
-                    });
-
-                    // Add department_id to each employee
-                    const employeeArray = Array.from(employees.values()).map(
-                        (emp) => ({
-                            ...emp,
-                            department_id:
-                                departmentMap.get(emp.department) || null,
-                        })
-                    );
+                    const employeeArray = Array.from(employees.values());
 
                     const createdEmployees = await Employee.bulkCreate(
                         employeeArray

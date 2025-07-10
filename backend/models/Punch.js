@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             tableName: "Punches",
-            timestamps: false,
+            timestamps: true,
             indexes: [
                 {
                     fields: ["employee_id"],

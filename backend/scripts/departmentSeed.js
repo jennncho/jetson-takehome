@@ -35,7 +35,7 @@ async function seedDepartments() {
                     );
 
                     console.log(
-                        `✅ Seeded ${createdDepartments.length} departments`
+                        `Seeded ${createdDepartments.length} departments`
                     );
                     resolve(createdDepartments);
                 } catch (error) {
